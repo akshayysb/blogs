@@ -1,0 +1,1246 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Akshay Bharambe</title>
+    <description>Akshaysb&#39;s blog,use Jekyll and github pages.</description>
+    <link>https://akkkshayb.github.io/bloggie/bloggie/</link>
+    <atom:link href="https://akkkshayb.github.io/bloggie/bloggie/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Fri, 31 Jul 2020 20:03:05 +0530</pubDate>
+    <lastBuildDate>Fri, 31 Jul 2020 20:03:05 +0530</lastBuildDate>
+    <generator>Jekyll v3.1.6</generator>
+    
+      <item>
+        <title>Basics of Kubernetes</title>
+        <description>&lt;p&gt;&lt;img src=&quot;public/blogimgs/k8s.png&quot; alt=&quot;k8s-logo&quot; /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&quot;what-is-kubernetes&quot;&gt;What is Kubernetes?&lt;/h3&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Kubernetes is a robust open source orchestration tool developed by Google for operating microservices or containerized applications beyond a distributed cluster of nodes. Kubernetes produces very flexible infrastructure with zero downtime deployment capacities, automated rollback, scaling, and self-healing of containers.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;The principal purpose of Kubernetes is to mask the complexity of maintaining a fleet of containers by implementing REST APIs for the functionalities needed. It is compact in nature which indicates that it can work on several public or private cloud platforms such as AWS, Azure, OpenStack, or Apache Mesos. It can also operate on simple machines.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&quot;kubernetes-components-and-architecture&quot;&gt;Kubernetes Components and Architecture&lt;/h3&gt;
+
+&lt;p&gt;Kubernetes observes a client-server architecture. It’s likely to have a multi-master setting for great accessibility, but by default, there is an individual master server which functions as a supervising node and point of connection. The master server consists of several components including a Kube-API server, an ETCD storage, a Kube-controller-manager, a cloud-controller-manager, a Kube-scheduler, and a DNS server for Kubernetes services. Node components incorporate Kubelet and Kube-proxy on top of Docker. Following are the major components observed on the master node:&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;ETCD cluster&lt;/code&gt;: A pure, distributed key-value storage which is utilised to save the Kubernetes cluster data, API objects and service identification details. It is only available from the API server for safety analyses. ETCD allows information to the cluster about configuration modifications with the assistance of watchers. Notifications/information are API requests on each ETCD cluster node to activate the update of data in the node’s storage.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Kube-API server&lt;/code&gt;: Kubernetes API server is the principal administration object that accepts every REST requests for changes (to pods, services, replication collections/controllers and many more), working as a frontend to the cluster. Besides, this is the single component that interacts with the ETCD cluster, making sure data is collected in ETCD and is in accordance with the service specifications of the deployed pods.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Kube-controller-manager&lt;/code&gt;: Operates many distinguished controller processes in the environment (for example, replication controller manages a number of replicas in a pod, endpoints controller occupies endpoint objects like services and pods, etc.) to control the shared state of the cluster and make regular responsibilities. When a difference in a service configuration happens, the controller detects the change and begins running towards the new aspired state.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Cloud-controller-manager&lt;/code&gt;: This component is capable for operating controller methods with dependencies on the underlying cloud provider. For instance, when a controller requires to verify if a node was stopped or set up paths, load balancers or volumes in the cloud infrastructure, all that is managed by the cloud-controller-manager.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Kube-scheduler&lt;/code&gt;: It helps to schedule the pods on several nodes based on resource usage. It scans the service’s operational specifications and lists it on the choicest fit node. For instance, if the applying needs 1 GB of memory and 2 CPU cores, then the pods for that application will be scheduled on a node with a minimum of those resources. The scheduler works each time there is a requirement to schedule pods. The scheduler needs to understand the entire resources ready as well as resources designated to current workloads on every node.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;public/blogimgs/kubernetes-architecture.jpg&quot; alt=&quot;k8s&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Node (worker) components&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Hereinafter are the chief components observed on a (worker) node:&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Kubelet&lt;/code&gt;: The chief service on a node that constantly takes in new or changed pod specifications and assuring that pods and their containers are in good condition and working in the expected state. This component also communicates to the master on the fitness of the host where it is working.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Kube-proxy&lt;/code&gt;: A proxy service that works on all worker node to deal with individual host subnetting and present services to the outer world. It does request forwarding to the exact pods/containers over the multiple isolated networks in a cluster.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&quot;kubernetes-basic-concepts&quot;&gt;Kubernetes Basic Concepts:&lt;/h3&gt;
+
+&lt;p&gt;To utilise the Kubernetes, it is important to know various concepts it works, for instance, services, pods, volumes. namespaces and deployments.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Pod&lt;/code&gt;: Pod usually indicates single or multiple containers that should be managed as a separate application. A pod confines application containers, storage resources, a unique network ID and other configuration on how the containers work.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Service&lt;/code&gt;: Pods are unstable, that is Kubernetes does not ensure an assigned physical pod to be active. Rather, a service depicts a logical set of pods and performs as a gateway, enabling (client) pods to send requests to the service without requiring an observation on which physical pods really make up the service.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Volume&lt;/code&gt;: Kubernetes volume is comparable to a container volume in Docker, but here volume indicates to an entire pod and is installed on each container in the pod. Kubernetes ensures data is conserved over container restarts. The volume will be eliminated only when the pod gets damaged. Also, a pod can have many associated volumes of different types.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Namespace&lt;/code&gt;: A virtual cluster (a single physical cluster can manage multiple virtual ones) is designated for settings with numerous users scattered across many teams or projects, for separation of businesses. Resources in a namespace must be uncommon and cannot locate resources in another namespace. Additionally, a namespace can be allotted a resource quota to avoid spending more than its share of the physical cluster’s overall resources.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Deployment&lt;/code&gt;: Specifies the desired state of a pod or a duplicate set, in a YAML file. The deployment controller then successively updates the context (for example, creating or deleting replicas) till the current state equals the desired state specified in the deployment file. For example, if the YAML file represents 2 replicas for a pod but only one is currently working, an additional one will get produced. Be aware that replicas maintained via a deployment should not be managed directly, It should be performed only through new deployments.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&quot;what-are-the-kubernetes-design-principles&quot;&gt;What are the Kubernetes Design Principles?&lt;/h3&gt;
+
+&lt;p&gt;Kubernetes was sketched to help the features needed by profoundly accessible distributed systems, for example, (auto-)scaling, high availability, safety and portability.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Scalability&lt;/code&gt; – Kubernetes presents horizontal scaling of pods on the grounds of CPU utilization. The threshold for CPU usage is configurable and Kubernetes will automatically begin new pods if the threshold is reached. For instance, if the inception is 70% for CPU but the application is really turning up to 220%, then ultimately 3 more pods will be deployed so that the average CPU utilization is back under 70%. When there are many pods for separate applications, Kubernetes implements the load balancing capacity over them. It also helps horizontal scaling of stateful pods, comprising NoSQL and RDBMS databases through Stateful sets. A Stateful set is a related concept to a Deployment but assures storage is determined and constant, even when a pod is eliminated.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;High Availability&lt;/code&gt; – High-availability Kubernetes marks large availability both at application and infrastructure level. Replica sets ensure that the desired number of replicas of a stateless pod for a distributed application are operating. Stateful sets make the same role for stateful pods. At the infrastructure level, Kubernetes assists unevenly distributed storage backends like AWS EBS, Azure Disk, Google Persistent Disk, NFS, and more. Adding a secure, available storage layer to Kubernetes ensures high availability of stateful workloads. Also, all of the master components can be configured for multi-node replication to ensure greater availability.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Security&lt;/code&gt; – Kubernetes addresses protection at various levels like cluster, application and network. The API endpoints are guarded through transport layer safety (TLS). Only verified users having service accounts or normal users can perform actions on the cluster through API requests. At the application level, Kubernetes secrets can collect sensitive information per cluster. Note that secrets are available from any pod in the same cluster. Network policies for access to pods can be settled in a deployment. A network policy defines how pods are provided to interact with each other and with other network endpoints.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Portability&lt;/code&gt; – Kubernetes portability discloses in terms of producing system options, processor architectures, cloud providers, and new container runtimes, besides Docker, can also be combined. Within the concept of federation, it can also hold workloads across hybrid (private and public cloud) or multi-cloud circumstances. This also maintains availability zone fault tolerance within a single cloud provider.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;That’s all about Kubernetes’ basic concepts in simple words!&lt;/p&gt;
+</description>
+        <pubDate>Tue, 20 Aug 2019 00:00:00 +0530</pubDate>
+        <link>https://akkkshayb.github.io/bloggie/bloggie/devsecops/2019/08/20/Basics-Kubernetes.html</link>
+        <guid isPermaLink="true">https://akkkshayb.github.io/bloggie/bloggie/devsecops/2019/08/20/Basics-Kubernetes.html</guid>
+        
+        <category>Kubernetes</category>
+        
+        
+        <category>Devsecops</category>
+        
+      </item>
+    
+      <item>
+        <title>Basics of Docker and Docker-compose</title>
+        <description>&lt;p&gt;&lt;img src=&quot;public/blogimgs/docker.png&quot; alt=&quot;Docker&quot; /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+&lt;h3 id=&quot;what-is-docker&quot;&gt;What is Docker?&lt;/h3&gt;
+
+&lt;p&gt;Wikipedia defines Docker as&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;an open-source project that automates the deployment of software applications inside containers by providing an additional layer of abstraction and automation of OS-level virtualization on Linux.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;strong&gt;Docker in Simple Words&lt;/strong&gt; :
+  Docker is a container management service. The keywords of Docker are develop, ship and
+  run anywhere. The whole idea of Docker is for developers to easily develop applications, ship them into containers which can then be deployed anywhere.
+—&lt;/p&gt;
+&lt;h3 id=&quot;features-of-docker&quot;&gt;Features of Docker&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;Reduce the size of development by providing a smaller footprint of the operating system via containers.&lt;/li&gt;
+  &lt;li&gt;Deploy Docker containers anywhere, on any physical and virtual machines and even on the cloud.&lt;/li&gt;
+  &lt;li&gt;pretty lightweight and easily scalable.&lt;/li&gt;
+  &lt;li&gt;Easy and Faster Configuration&lt;/li&gt;
+  &lt;li&gt;Increase productivity&lt;/li&gt;
+  &lt;li&gt;Application Isolation&lt;/li&gt;
+  &lt;li&gt;Swarm&lt;/li&gt;
+  &lt;li&gt;Routing Mesh&lt;/li&gt;
+  &lt;li&gt;
+    &lt;h2 id=&quot;security-management&quot;&gt;Security Management&lt;/h2&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;docker-architecture&quot;&gt;Docker Architecture&lt;/h3&gt;
+
+&lt;p&gt;Docker follows client-server architecture. Its architecture consists mainly three parts.&lt;/p&gt;
+
+&lt;p&gt;1) &lt;code class=&quot;highlighter-rouge&quot;&gt;Client&lt;/code&gt;: Docker provides Command Line Interface (CLI) tools to client to interact with Docker daemon. Client can build, run and stop application. Client can also interact to Docker_Host remotely.&lt;/p&gt;
+
+&lt;p&gt;2) &lt;code class=&quot;highlighter-rouge&quot;&gt;Docker_Host&lt;/code&gt;: It contains Containers, Images, and Docker daemon. It provides complete environment to execute and run your application.&lt;/p&gt;
+
+&lt;p&gt;3) &lt;code class=&quot;highlighter-rouge&quot;&gt;Registry&lt;/code&gt;: It is global repository of images. You can access and use these images to run your application in Docker environment.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;public/blogimgs/docker-architecture.png&quot; alt=&quot;Docker-architecture&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;So before we go further, let me clarify some terminology that is used frequently in the Docker ecosystem.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Images&lt;/code&gt; - The blueprints of our application which form the basis of containers. In the demo above, we used the docker pull command to download the busybox image.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Containers&lt;/code&gt; - Created from Docker images and run the actual application. We create a container using docker run which we did using the busybox image that we downloaded. A list of running containers can be seen using the docker ps command.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Docker Daemon&lt;/code&gt; - The background service running on the host that manages building, running and distributing Docker containers. The daemon is the process that runs in the operating system to which clients talk to.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Docker Client&lt;/code&gt; - The command line tool that allows the user to interact with the daemon. More generally, there can be other forms of clients too - such as Kitematic which provide a GUI to the users.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Docker Hub&lt;/code&gt; - A registry of Docker images. You can think of the registry as a directory of all available Docker images. If required, one can host their own Docker registries and can use them for pulling images.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Docker Engine&lt;/code&gt; - It is used for building Docker images and creating Docker containers.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Docker Compose&lt;/code&gt; - This is used to define applications using multiple Docker containers.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&quot;why-use-docker-containers-&quot;&gt;Why use Docker Containers ?&lt;/h3&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Containers offer a logical packaging mechanism in which applications can be abstracted from the environment in which they actually run. This decoupling allows container-based applications to be deployed easily and consistently, regardless of whether the target environment is a private data center, the public cloud, or even a developer’s personal laptop. This gives developers the ability to create predictable environments that are isolated from rest of the applications and can be run anywhere.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;strong&gt;Virtual Machine vs Docker Containers&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;The industry standard today is to use Virtual Machines (VMs) to run software applications. VMs run applications inside a guest Operating System, which runs on virtual hardware powered by the server’s host OS.&lt;/p&gt;
+
+&lt;p&gt;VMs are great at providing full process isolation for applications: there are very few ways a problem in the host operating system can affect the software running in the guest operating system, and vice-versa. But this isolation comes at great cost — the computational overhead spent virtualizing hardware for a guest OS to use is substantial.&lt;/p&gt;
+
+&lt;p&gt;Containers take a different approach: by leveraging the low-level mechanics of the host operating system, containers provide most of the isolation of virtual machines at a fraction of the computing power.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;In Docker, ControlGroup or CGroup is linux kernel feature that allows user to chop and isolate vital kernel resources so it can be accessed by specific set of processes. Thus creating a abstraction layer at kernel level. Such an isolation is know and containerisation.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;strong&gt;Three key differneces between both&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;VM is the entire copy of the operating system while the container will have minimal resources(less memory, less disk space, less usage of CPU) that are required to run a service. Therefore we can have many more containers running on a host machine than VMs.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Containers also tend to run faster than the VM, and they tend to boot a lot faster than VM.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Since containers are lightweight and fast, it’s quicker to create new instances to meet the demand.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;docker-networking-and-volumes&quot;&gt;Docker Networking and Volumes&lt;/h2&gt;
+&lt;p&gt;Another two features that made docker so powerful are isolated communication and managing data and its persistence using Docker networking and Docker volumes.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Docker Newtworking&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Docker takes care of the networking aspects so that the containers can communicate with other containers and also with the Docker Host. If you do an ifconfig on the Docker Host, you will see the Docker Ethernet adapter. This adapter is created when Docker is installed on the Docker Host.&lt;/p&gt;
+
+&lt;p&gt;Docker’s networking subsystem is pluggable, using drivers. Several drivers exist by default, and provide core networking functionality:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;User-defined bridge networks are best when you need multiple containers to communicate on the same Docker host.&lt;/li&gt;
+  &lt;li&gt;Host networks are best when the network stack should not be isolated from the Docker host, but you want other aspects of the container to be isolated.&lt;/li&gt;
+  &lt;li&gt;Overlay networks are best when you need containers running on different Docker hosts to communicate, or when multiple applications work together using swarm services.&lt;/li&gt;
+  &lt;li&gt;Macvlan networks are best when you are migrating from a VM setup or need your containers to look like physical hosts on your network, each with a unique MAC address.&lt;/li&gt;
+  &lt;li&gt;Third-party network plugins allow you to integrate Docker with specialized network stacks.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Docker Volumes&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Volumes are the preferred mechanism for persisting data generated by and used by Docker containers. While bind mounts are dependent on the directory structure of the host machine, volumes are completely managed by Docker. Volumes have several advantages over bind mounts:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Volumes are easier to back up or migrate than bind mounts.&lt;/li&gt;
+  &lt;li&gt;You can manage volumes using Docker CLI commands or the Docker API.&lt;/li&gt;
+  &lt;li&gt;Volumes work on both Linux and Windows containers.&lt;/li&gt;
+  &lt;li&gt;Volumes can be more safely shared among multiple containers.&lt;/li&gt;
+  &lt;li&gt;Volume drivers let you store volumes on remote hosts or cloud providers, to encrypt the contents of volumes, or to add other functionality.&lt;/li&gt;
+  &lt;li&gt;New volumes can have their content pre-populated by a container.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;In addition, volumes are often a better choice than persisting data in a container’s writable layer, because a volume does not increase the size of the containers using it, and the volume’s contents exist outside the lifecycle of a given container.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;docker-compose&quot;&gt;Docker Compose&lt;/h2&gt;
+
+&lt;p&gt;Compose is a tool for defining and running multi-container Docker applications. With Compose, you use a Compose file to configure your application’s services. Then, using a single command, you create and start all the services from your configuration. To learn more about all the features of Compose see the list of features.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Compose is great for development, testing, and staging environments, as well as CI workflows. You can learn more about each case in Common Use Cases.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Using Compose is basically a three-step process.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Define your app’s environment with a Dockerfile so it can be reproduced anywhere.&lt;/li&gt;
+  &lt;li&gt;Define the services that make up your app in docker-compose.yml so they can be run together in an isolated environment.&lt;/li&gt;
+  &lt;li&gt;Lastly, run docker-compose up and Compose will start and run your entire app.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;A docker-compose.yml looks like this:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;version: &#39;2&#39;
+
+services:
+  web:
+    build: .
+    ports:
+     - &quot;5000:5000&quot;
+    volumes:
+     - .:/code
+  redis:
+    image: redis
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;That’s it. Enjoy Dockering!&lt;/p&gt;
+</description>
+        <pubDate>Tue, 20 Aug 2019 00:00:00 +0530</pubDate>
+        <link>https://akkkshayb.github.io/bloggie/bloggie/devsecops/2019/08/20/Basics-Docker-and-Docker-compose.html</link>
+        <guid isPermaLink="true">https://akkkshayb.github.io/bloggie/bloggie/devsecops/2019/08/20/Basics-Docker-and-Docker-compose.html</guid>
+        
+        <category>Docker</category>
+        
+        
+        <category>Devsecops</category>
+        
+      </item>
+    
+      <item>
+        <title>Setup K8s with Minikube</title>
+        <description>&lt;h1 id=&quot;kubernetes-with-minikube&quot;&gt;Kubernetes with Minikube&lt;/h1&gt;
+
+&lt;p&gt;&lt;img src=&quot;public/blogimgs/minikube-architecture.png&quot; alt=&quot;K8s-with-minikube&quot; /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+&lt;h2 id=&quot;how-to-install-kubernetes-with-minikube-on-ubuntu-1804-lts&quot;&gt;How to Install Kubernetes with Minikube on Ubuntu 18.04 LTS&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Minikube is a free and open source tool that enables you to set up single node Kubernetes cluster inside your Linux system. Minikube can be installed on Linux, MacOS and Windows Operating system. Minikube also supports various Kubernetes features such as NodePorts, DNS, Container Network Interface, Ingress, ConfigMaps, Secrets and much more.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;In this tutorial, we will learn how to install a Kubernetes single-node Cluster Minikube on Ubuntu 18.04 LTS.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Requirements&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;A Fresh Ubuntu 18.04 desktop installed on your system.&lt;/li&gt;
+  &lt;li&gt;A root password is set up on your system.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Getting Started&lt;/strong&gt;
+First, you will need to update your system with the latest version. You can do this by running the following command:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;apt-get update -y
+apt-get upgrade -y
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Once the system is updated, restart your system to apply all the changes.&lt;/p&gt;
+
+&lt;p&gt;Next, install some required packages with the following command:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;apt-get install curl wget apt-transport-https -y --- ## Install VirtualBox Hypervisor Minikube supports both KVM and VirtualBox hypervisor. So, you will need to install VirtualBox or KVM to your system.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;You can install Virtualbox with the following command:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;apt-get install virtualbox virtualbox-ext-pack
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;once-the-installation-has-been-completed-you-can-proceed-to-the-next-step&quot;&gt;Once the installation has been completed, you can proceed to the next step.&lt;/h2&gt;
+&lt;h2 id=&quot;install-minikube&quot;&gt;Install Minikube&lt;/h2&gt;
+
+&lt;p&gt;First, you will need to download the latest version of Minikube to your system. You can download it from their official websites with the following command:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;wget https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Once the download is completed, copy the downloaded file under /usr/local/bin with the following command:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;cp minikube-linux-amd64 /usr/local/bin/minikube
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Next, give execution permission to the minikube with the following command:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;chmod 755 /usr/local/bin/minikube
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Next, check the version of Minikube with the following command:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;minikube version
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;You should see the following output:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;minikube version: v0.34.1 --- ### Install Kubectl
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Kubectl is a tool to deploy and manage applications on Kubernetes. By default, Kubectl is not available in the Ubuntu 18.04 default repository. So, you will need to add Kubernetes repository to your system.&lt;/p&gt;
+
+&lt;p&gt;First, download and add the GPG key with the following command:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Next, add Kubernetes apt repository with the following command:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;echo &quot;deb http://apt.kubernetes.io/ kubernetes-xenial main&quot; | tee /etc/apt/sources.list.d/kubernetes.list
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Next, update the repository and install Kubectl with the following command:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;apt-get update -y
+apt-get install kubectl -y
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Once the Kubectl has been installed, you can check the version using the following command:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;kubectl version -o json
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;You should see the following output:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;{
+  &quot;clientVersion&quot;: {
+    &quot;major&quot;: &quot;1&quot;,
+    &quot;minor&quot;: &quot;13&quot;,
+    &quot;gitVersion&quot;: &quot;v1.13.4&quot;,
+    &quot;gitCommit&quot;: &quot;c27b913fddd1a6c480c229191a087698aa92f0b1&quot;,
+    &quot;gitTreeState&quot;: &quot;clean&quot;,
+    &quot;buildDate&quot;: &quot;2019-02-28T13:37:52Z&quot;,
+    &quot;goVersion&quot;: &quot;go1.11.5&quot;,
+    &quot;compiler&quot;: &quot;gc&quot;,
+    &quot;platform&quot;: &quot;linux/amd64&quot;
+  }
+} --- ## Start Minikube
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;All the required packages are installed. You can now start Minikube with the following command:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;minikube start
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This will download the Virtualbox image and configure Kubernetes cluster as shown below:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;o   minikube v0.34.1 on linux (amd64)
+&amp;gt;   Creating virtualbox VM (CPUs=2, Memory=2048MB, Disk=20000MB) ...
+@   Downloading Minikube ISO ...
+ 184.30 MB / 184.30 MB [============================================] 100.00% 0s
+-   &quot;minikube&quot; IP address is 192.168.99.100
+-   Configuring Docker as the container runtime ...
+-   Preparing Kubernetes environment ...
+@   Downloading kubeadm v1.13.3
+@   Downloading kubelet v1.13.3
+​
+-   Pulling images required by Kubernetes v1.13.3 ...
+-   Launching Kubernetes v1.13.3 using kubeadm ... 
+-   Configuring cluster permissions ...
+-   Verifying component health .....
++   kubectl is now configured to use &quot;minikube&quot;
+=   Done! Thank you for using minikube!
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;You can now check the cluster status with the following command:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;kubectl cluster-info
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;You should see the following output:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Kubernetes master is running at https://192.168.99.100:8443
+KubeDNS is running at https://192.168.99.100:8443/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
+​
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;To further debug and diagnose cluster problems, use ‘kubectl cluster-info dump’.
+You can also check the Kubectl default configuration with the following command:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;kubectl config view
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;You should see the following output:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;apiVersion: v1
+clusters:
+- cluster:
+    certificate-authority: /root/.minikube/ca.crt
+    server: https://192.168.99.100:8443
+  name: minikube
+contexts:
+- context:
+    cluster: minikube
+    user: minikube
+  name: minikube
+current-context: minikube
+kind: Config
+preferences: {}
+users:
+- name: minikube
+  user:
+    client-certificate: /root/.minikube/client.crt
+    client-key: /root/.minikube/client.key
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;To check the running nodes, run the following command:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;kubectl get nodes
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Output:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;NAME       STATUS   ROLES    AGE     VERSION
+minikube   Ready    master   2m45s   v1.13.3
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;You can also access the Minikube Virtualbox with the following command:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;minikube ssh
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Yo should see the following output:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;                         _             _            
+            _         _ ( )           ( )           
+  ___ ___  (_)  ___  (_)| |/&#39;)  _   _ | |_      __  
+/&#39; _ ` _ `\| |/&#39; _ `\| || , &amp;lt;  ( ) ( )| &#39;_`\  /&#39;__`\
+| ( ) ( ) || || ( ) || || |\`\ | (_) || |_) )(  ___/
+(_) (_) (_)(_)(_) (_)(_)(_) (_)`\___/&#39;(_,__/&#39;`\____)
+​
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Now, exit from the Virtualbox shell:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ exit
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;You can also stop and delete kubernetes cluster anytime with the following command:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;minikube stop
+minikube delete
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;You can check the status of Minikube with the following command:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;minikube status
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;You should see the following output:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;host: Running
+kubelet: Running
+apiserver: Running
+kubectl: Correctly Configured: pointing to minikube-vm at 192.168.99.100 --- ### Access Kubernetes Dashboard By default, Kubernetes comes with web dashboard that can be used to manage your cluster.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;You can list all the minikube addons with the following command:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;minikube addons list You should see the following output:
+
+- addon-manager: enabled
+- dashboard: disabled
+- default-storageclass: enabled
+- efk: disabled
+- freshpod: disabled
+- gvisor: disabled
+- heapster: disabled
+- ingress: disabled
+- logviewer: disabled
+- metrics-server: disabled
+- nvidia-driver-installer: disabled
+- nvidia-gpu-device-plugin: disabled
+- registry: disabled
+- registry-creds: disabled
+- storage-provisioner: enabled
+- storage-provisioner-gluster: disabled
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Next, list all the container image running in the cluster with the following command:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;kubectl get pods --all-namespaces
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;You should see the following output:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;NAMESPACE     NAME                                   READY   STATUS    RESTARTS   AGE
+kube-system   coredns-86c58d9df4-76dkf               1/1     Running   0          4m30s
+kube-system   coredns-86c58d9df4-wdtwb               1/1     Running   0          4m29s
+kube-system   etcd-minikube                          1/1     Running   0          8m17s
+kube-system   kube-addon-manager-minikube            1/1     Running   0          8m6s
+kube-system   kube-apiserver-minikube                1/1     Running   1          8m13s
+kube-system   kube-controller-manager-minikube       1/1     Running   1          8m13s
+kube-system   kube-proxy-5k8qf                       1/1     Running   0          4m33s
+kube-system   kube-scheduler-minikube                1/1     Running   0          8m2s
+kube-system   kubernetes-dashboard-ccc79bfc9-z827s   1/1     Running   0          4m17s
+kube-system   storage-provisioner                    1/1     Running   0          4m13s
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Now, run the following command to get the URL of the kubernate dashboard:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;minikube dashboard --url
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;You should see the following output:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;-   Enabling dashboard ...
+-   Verifying dashboard health ...
+-   Launching proxy ...
+-   Verifying proxy health ...
+http://127.0.0.1:56508/api/v1/namespaces/kube-system/services/http:kubernetes-dashboard:/proxy/
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Your Minikube web url is now generated. Next, open your web browser and type the URL:&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;http://127.0.0.1:56508/api/v1/namespaces/kube-system/services/http:kubernetes-dashboard:/proxy/&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;You will be redirected to the Kubernate dashboad.&lt;/p&gt;
+
+&lt;h2 id=&quot;congratulations-you-have-successfully-installed-minikube-you-can-now-easily-manage-your-kubernetes-cluster-through-your-web-browser&quot;&gt;Congratulations! you have successfully installed Minikube. You can now easily manage your Kubernetes cluster through your web browser.&lt;/h2&gt;
+</description>
+        <pubDate>Mon, 19 Aug 2019 00:00:00 +0530</pubDate>
+        <link>https://akkkshayb.github.io/bloggie/bloggie/devsecops/2019/08/19/Setup-K8s-with-minikube.html</link>
+        <guid isPermaLink="true">https://akkkshayb.github.io/bloggie/bloggie/devsecops/2019/08/19/Setup-K8s-with-minikube.html</guid>
+        
+        <category>Kubernetes</category>
+        
+        
+        <category>Devsecops</category>
+        
+      </item>
+    
+      <item>
+        <title>Setup &amp; Install Docker and Docker-compose</title>
+        <description>&lt;p&gt;&lt;img src=&quot;public/blogimgs/docker.png&quot; alt=&quot;Docker&quot; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;docker--docker-compose&quot;&gt;Docker &amp;amp; Docker-compose&lt;/h1&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;how-to-install-specific-docker-version-on-linux-machine&quot;&gt;How To Install specific Docker version on Linux Machine.&lt;/h2&gt;
+
+&lt;p&gt;To install Docker in most ways on Linux machine in many ways.
+Here are some steps do so to install on most Linux Operating Systems.
+—&lt;/p&gt;
+
+&lt;h3 id=&quot;on-ubuntu-based-distros&quot;&gt;On Ubuntu Based Distros.&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;For Latest Docker CE Versions&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;curl -fsSL https://download.docker.com/linux/ubuntu/gpg 
+sudo apt-key add -
+sudo add-apt-repository &quot;deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable&quot;sudo apt-get update
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;For Older Docker Versions CE.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;curl -fsSL https://apt.dockerproject.org/gpg 
+sudo apt-key add -
+sudo apt-add-repository &quot;deb https://apt.dockerproject.org/repo ubuntu-$(lsb_release -cs) main&quot;sudo apt-get update --- ### On Debian Based Distros
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;For Latest Docker CE Versions&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;curl -fsSL https://download.docker.com/linux/debian/gpg 
+sudo apt-key add -
+sudo add-apt-repository &quot;deb [arch=amd64] https://download.docker.com/linux/debian $(lsb_release -cs) stable&quot;sudo apt-get update
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;For Older Docker Versions CE.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;curl -fsSL https://apt.dockerproject.org/gpg 
+sudo apt-key add -
+sudo apt-add-repository &quot;deb https://apt.dockerproject.org/repo debian-$(lsb_release -cs) main&quot;sudo apt-get update
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;now-to-install-specific-docker-versions-on-ubuntudebian&quot;&gt;Now to install specific Docker versions on Ubuntu/Debian&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;For Latest Docker CE Versions&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo apt-cache policy docker-ce
+sudo apt-get install docker-ce=17.06.0~ce-0~ubuntu
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;or&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo apt-get install docker-ce=17.06.0~ce-0~debian
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;For Older Docker Versions&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo apt-cache policy docker-engine
+sudo apt-get install docker-engine=1.13.1-0~ubuntu-xenial
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;or&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo apt-get install docker-engine=1.13.1-0~debian-jessie ---
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;on-centos--like-distros&quot;&gt;On Centos  Like Distros&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;For Docker CE Versions&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo curl -SsL https://download.docker.com/linux/centos/docker-ce.repo -o /etc/yum.repos.d/docker-ce.repo
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;For Older Docker Versions&lt;/strong&gt;
+Run following Command:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo tee /etc/yum.repos.d/docker.repo &amp;lt;&amp;lt;-’EOF’
+[dockerrepo]
+name=Docker Repository
+baseurl=
+https://yum.dockerproject.org/repo/main/centos/$releasever/enabled=1
+gpgcheck=1
+gpgkey=
+https://yum.dockerproject.org/gpg
+EOF --- ### On Fedora  Like Distros
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;For Docker CE Versions&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo curl -SsL https://download.docker.com/linux/fedora/docker-ce.repo -o /etc/yum.repos.d/docker-ce.repo
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;For Older Docker Versions&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo tee /etc/yum.repos.d/docker.repo &amp;lt;&amp;lt;EOF
+[dockerrepo]
+name=Docker Repository
+baseurl=https://yum.dockerproject.org/repo/main/fedora/$releasever/
+enabled=1
+gpgcheck=1
+gpgkey=
+https://yum.dockerproject.org/gpg
+EOF
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Now to Install specific Docker versions on Centos/Fedora&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;For Latest Docker CE versions (≥17.06.0 CE)&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo yum --showduplicates list docker-ce
+sudo yum install docker-ce-17.06.0.ce-1.el7.centos
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;or&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo yum install docker-ce-17.06.0.ce-1.fc25
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;For Older Docker versions (&amp;lt; 17.06.0 CE)&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo yum --showduplicates list docker-engine
+sudo yum install docker-engine-1.13.1-1.el7.centos
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;or&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo yum install docker-engine-1.13.1-1.fc25 --- After installation of docker check version of installed version using
+
+docker --version
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Check status, Start and Automate Docker on system startup
+The Docker service needs to be setup to run at startup. To do so, type in each command followed by enter:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo systemctl start docker
+
+sudo systemctl enable docker
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;If you want to avoid typing sudo whenever you run the docker command, add your username to the docker group:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo usermod -aG docker ${USER}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;To apply the new group membership, you can log out of the server and back in, or you can type the following:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;su - ${USER}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;You will be prompted to enter your user’s password to continue. Afterwards, you can confirm that your user is now added to the docker group by typing:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;id -nG
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Output:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;akshay sudo docker
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;hr /&gt;
+&lt;h2 id=&quot;installing-docker-compose&quot;&gt;Installing Docker Compose&lt;/h2&gt;
+
+&lt;p&gt;Although we can install Docker Compose from the official Ubuntu repositories, it is several minor version behind the latest release, so we’ll install Docker Compose from the Docker’s GitHub repository. The command below is slightly different than the one you’ll find on the Releases page. By using the -o flag to specify the output file first rather than redirecting the output, this syntax avoids running into a permission denied error caused when using sudo.&lt;/p&gt;
+
+&lt;p&gt;We’ll check the current release and if necessary, update it in the command below:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo curl -L https://github.com/docker/compose/releases/download/1.18.0/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;You can change the version as per your requirement (1.18/1.22)&lt;/p&gt;
+
+&lt;p&gt;Next we’ll set the permissions:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo chmod +x /usr/local/bin/docker-compose
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Then we’ll verify that the installation was successful by checking the version:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;docker-compose --version
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This will print out the version we installed:&lt;/p&gt;
+
+&lt;p&gt;Output:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;docker-compose version 1.18.0, build 8dd22a9
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;now-that-we-have-docker-compose-installed-were-ready-to-run-a-hello-world-example&quot;&gt;Now that we have Docker Compose installed, we’re ready to run a “Hello World” example.&lt;/h2&gt;
+</description>
+        <pubDate>Mon, 19 Aug 2019 00:00:00 +0530</pubDate>
+        <link>https://akkkshayb.github.io/bloggie/bloggie/devsecops/2019/08/19/Setup-Docker-and-Docker-compose.html</link>
+        <guid isPermaLink="true">https://akkkshayb.github.io/bloggie/bloggie/devsecops/2019/08/19/Setup-Docker-and-Docker-compose.html</guid>
+        
+        <category>Docker</category>
+        
+        
+        <category>Devsecops</category>
+        
+      </item>
+    
+      <item>
+        <title>Overview of DevOps</title>
+        <description>&lt;p&gt;&lt;img src=&quot;public/blogimgs/devops.png&quot; alt=&quot;devops&quot; /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;what-is-devops&quot;&gt;&lt;strong&gt;What is DevOps&lt;/strong&gt;&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;DevOps is the combination of cultural philosophies, practices, and tools that increases an organization’s ability to deliver
+applications and services at high velocity: evolving and improving products at a faster pace than organizations using traditional software development and infrastructure management processes.
+This speed enables organizations to better serve their customers and compete more effectively in the market.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;strong&gt;Devops in Simple Words:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;DevOps is the practice of operations and development engineers participating together in the entire service lifecycle, from&lt;/code&gt; 
+&lt;code class=&quot;highlighter-rouge&quot;&gt;design through the development process to  production support.&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;DevOps is a management culture that improves the IT service delivery agility on the basis of:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Communication&lt;/li&gt;
+  &lt;li&gt;Collaboration&lt;/li&gt;
+  &lt;li&gt;Integration&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;how-devops-works&quot;&gt;&lt;strong&gt;How DevOps Works:&lt;/strong&gt;&lt;/h2&gt;
+
+&lt;p&gt;According to AWS, Under a DevOps model, development and operations teams are no longer separate. Sometimes, QA and Security these
+two teams are also merged along with Development and Operation teams into a single team where the engineers work across the
+entire application lifecycle, from development and test to deployment to operations, and develop a range of skills not limited to
+a single function.&lt;/p&gt;
+
+&lt;p&gt;These teams use practices to automate processes that historically have been manual and slow. They use a technology stack and
+tooling which help them operate and evolve applications quickly and reliably. These tools also help engineers independently
+accomplish tasks (for example, deploying code or provisioning infrastructure) that normally would have required help from other
+teams, and this further increases a team’s velocity.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&quot;why-you-should-integrate-devops-in-your-software-development-process&quot;&gt;&lt;strong&gt;Why You Should Integrate DevOps in Your Software Development Process:&lt;/strong&gt;&lt;/h3&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Quicker mitigation of software defects.&lt;/li&gt;
+  &lt;li&gt;Better resource management.&lt;/li&gt;
+  &lt;li&gt;Reduced human errors.&lt;/li&gt;
+  &lt;li&gt;Enhanced version control.&lt;/li&gt;
+  &lt;li&gt;Stable operating environment.&lt;/li&gt;
+  &lt;li&gt;Improve deployment frequency.&lt;/li&gt;
+  &lt;li&gt;Lower failure rate of new releases.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;hr /&gt;
+&lt;h2 id=&quot;devops-practices&quot;&gt;&lt;strong&gt;DevOps Practices:&lt;/strong&gt;&lt;/h2&gt;
+
+&lt;p&gt;The following are DevOps best practices:&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;1. Continuous Delivery&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Continuous delivery is the development practice of running every code change through automated tests, creating successful application builds, and promoting them up to production stage using automated deploys. Though the practice isn’t easy, it helps create, test, and deploy apps more quickly and with minimized risks.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;2. Continuous Testing&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Continuous testing in DevOps is an essential part of building software solutions, that represents the process of executing automated tests enabling to provide continuous feedback on business risks in the latest application build.&lt;/p&gt;
+
+&lt;p&gt;Since testing occurs continuously, app development teams can fix bugs on time and prevent defects from progressing to the next step of the software development lifecycle (SDLC).&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;3. Continuous Integration&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Continuous integration is the practice implying app development teams to frequently integrate new or changed code into a shared code repository. Then, each check-in is verified by an automated build, enabling developers to identify and correct errors immediately.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;4. Continuous Monitoring&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Continuous monitoring is the practice, used for defining risks and weaknesses in the application. The product is under constant monitoring which allows engineers to correct errors on time and make required improvements. The result is high-quality software that meets customer’s needs and expectations.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;5. Continuous Feedback &amp;amp; Optimization&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;In today’s high competition software delivered faster and with a higher quality guarantee you neither high income nor user satisfaction. In developing successful applications it is user feedback that takes the center stage.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;6. Microservices&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;The microservices architecture is a design approach to build a single application as a set of small services. Each service runs in its own process and communicates with other services through a well-defined interface using a lightweight mechanism, typically an HTTP-based application programming interface (API). Microservices are built around business capabilities; each service is scoped to a single purpose. You can use different frameworks or programming languages to write microservices and deploy them independently, as a single service, or as a group of services.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;7. Infrastructure as Code&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Infrastructure as code is a practice in which infrastructure is provisioned and managed using code and software development techniques, such as version control and continuous integration. The cloud’s API-driven model enables developers and system administrators to interact with infrastructure programmatically, and at scale, instead of needing to manually set up and configure resources. Thus, engineers can interface with infrastructure using code-based tools and treat infrastructure in a manner similar to how they treat application code. Because they are defined by code, infrastructure and servers can quickly be deployed using standardized patterns, updated with the latest patches and versions, or duplicated in repeatable ways.&lt;/p&gt;
+
+&lt;hr /&gt;
+&lt;h3 id=&quot;what-is-difference-between-continuous-delivery-vs-continuous-deployment&quot;&gt;&lt;strong&gt;What is difference between Continuous Delivery vs. Continuous Deployment.&lt;/strong&gt;&lt;/h3&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;“Continuous Delivery is a small build cycle with short sprints…”&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Where the aim is to keep the code in a deployable state at any given time. This does not mean the code or project is 100% complete, but the feature sets that are available are vetted, tested, debugged and ready to deploy, although you may not deploy at that moment.&lt;/p&gt;
+
+&lt;p&gt;The focus and key here is to keep the code base at a deployable state. This is the standard everyday project that goes out to the public or is consumer facing. In today’s world, you cannot afford to release a bug-riddled project, so smaller sprints allow for quicker turn times to identify bugs and therefore quicker time in fixing those bugs, creating a much more stable code base early on. This is our preferred method of working.&lt;/p&gt;
+
+&lt;p&gt;With &lt;strong&gt;Continuous Deployment&lt;/strong&gt;, every change that is made and passing through all automated tests in continous integration phase is automatically deployed to production. This approach works well in enterprise environments where you plan to use the user as the actual tester and it can be quicker to release.&lt;/p&gt;
+
+&lt;hr /&gt;
+&lt;h2 id=&quot;agile-and-devops&quot;&gt;&lt;strong&gt;Agile and DevOps&lt;/strong&gt;&lt;/h2&gt;
+
+&lt;p&gt;Agile development used to be front and center in the conversation about software development. Now, DevOps has taken over the conversation. How do agile and DevOps relate? Both ideas began as ways to improve different aspects of software development. Agile embraced the changing nature of requirements and prioritized working software over rigid processes. DevOps collapsed the development and operations silos to improve both development and production operations. Each shares some fundamental ideas, but each target different stakeholders and set different business goals.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&quot;how-agile-and-devops-differ&quot;&gt;&lt;strong&gt;How Agile and DevOps Differ:&lt;/strong&gt;&lt;/h3&gt;
+
+&lt;p&gt;Agile and DevOps each target different actors in the SDLC. Agile covers project management and requires strongly defined roles like Product Owner. DevOps targets more technical work and requires engineers to accept shared responsibility for building and deploying software while requiring management and product owners to think of their software in a certain way. 
+It should be clearer now how Agile and DevOps are both ideas and apply to different areas in the SDLC. Agile is a framework for building products and DevOps is a set of technical practices for deploying and running production systems. Given these two ideas are different and equally powerful, you should adopt both in your SDLC.&lt;/p&gt;
+
+&lt;hr /&gt;
+&lt;h3 id=&quot;thats-it-for-devops&quot;&gt;That’s it for DevOps.&lt;/h3&gt;
+&lt;hr /&gt;
+
+&lt;p&gt;There might be questions arises in your mind regarding terms used in blog. You may understand from below.&lt;/p&gt;
+
+&lt;h2 id=&quot;que1-what-is-sdlc-lifecycle-and-what-are-phases-of-sdlc&quot;&gt;Que.1. What is SDLC lifecycle and what are phases of SDLC?&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;The Software Development Lifecycle is a systematic process for building software that ensures the quality and correctness of the software built. SDLC process aims to produce high-quality software which meets customer expectations. The software development should be complete in the pre-defined time frame and cost.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;SDLC consists of a detailed plan which explains how to plan, build, and maintain specific software. Every phase of the SDLC
+lifecycle has its own process and deliverables that feed into the next phase.&lt;/p&gt;
+
+&lt;p&gt;The entire SDLC process divided into the following stages:&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Phase 1: Requirement collection and analysis&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Phase 2: Feasibility study&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Phase 3: Design&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Phase 4: Coding&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Phase 5: Testing&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Phase 6: Installation/Deployment&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Phase 7: Maintenance&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;que2-what-is-agile-methodologies-what-is-scrum-and-sprint&quot;&gt;Que.2. What is Agile methodologies? What is Scrum and Sprint?&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;AGILE methodology is a practice that promotes continuous iteration of development and testing throughout the software development lifecycle of the project. Both development and testing activities are concurrent unlike the Waterfall model.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;The agile software development emphasizes on four core values.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Individual and team interactions over processes and tools&lt;/li&gt;
+  &lt;li&gt;Working software over comprehensive documentation&lt;/li&gt;
+  &lt;li&gt;Customer collaboration over contract negotiation&lt;/li&gt;
+  &lt;li&gt;Responding to change over following a plan&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Scrum&lt;/code&gt; : Scrum is an agile way to manage a project, usually software development. Agile software development with Scrum is often perceived as a methodology; but rather than viewing Scrum as methodology, think of it as a framework for managing a process.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Sprint&lt;/code&gt; : Sprint is one timeboxed iteration of a continuous development cycle. Within a Sprint, planned amount of work has to be completed by the team and made ready for review. The term is mainly used in Scrum Agile methodology.&lt;/p&gt;
+</description>
+        <pubDate>Mon, 19 Aug 2019 00:00:00 +0530</pubDate>
+        <link>https://akkkshayb.github.io/bloggie/bloggie/devsecops/2019/08/19/Overview-of-devops.html</link>
+        <guid isPermaLink="true">https://akkkshayb.github.io/bloggie/bloggie/devsecops/2019/08/19/Overview-of-devops.html</guid>
+        
+        <category>DevOps</category>
+        
+        
+        <category>Devsecops</category>
+        
+      </item>
+    
+      <item>
+        <title>Setup Golang Environment</title>
+        <description>&lt;p&gt;&lt;img src=&quot;public/blogimgs/go.png&quot; alt=&quot;go&quot; /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;prerequisites-this-tutorial-assumes-that-you-have-access-to-an--ubuntu-1804-system&quot;&gt;Prerequisites: This tutorial assumes that you have access to an  Ubuntu 18.04 system.&lt;/h2&gt;
+
+&lt;p&gt;Lets proceed to download and setup go:&lt;/p&gt;
+
+&lt;h2 id=&quot;step-1-download-go-packages-&quot;&gt;Step 1 :Download Go Packages :&lt;a href=&quot;#step-1-download-go-packages&quot;&gt;&lt;/a&gt;&lt;/h2&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;$ cd ~ $&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;curl -O&lt;/code&gt; &lt;a href=&quot;https://dl.google.com/go/go1.12.1.linux-amd64.tar.gz&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;https://dl.google.com/go/go1.12.1.linux-amd64.tar.gz&lt;/code&gt;&lt;/a&gt;
+‌
+Extract the Downloaded packages : Next, use tar to extract the tarball. The x flag tells tar to extract, v tells it we want verbose output (a listing of the files being extracted), and f tells it we’ll specify a filename:&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;$ tar xvf go1.10.3.linux-amd64.tar.gz&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;You should now have a directory called go in your home directory. Recursively change go’s owner and group to root, and move it to /usr/local:&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;$ sudo chown -R root:root ./go&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;$ sudo mv go /usr/local&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;step-2--setting-go-paths&quot;&gt;Step 2 — Setting Go Paths&lt;a href=&quot;#step-2-setting-go-paths&quot;&gt;&lt;/a&gt;&lt;/h2&gt;
+
+&lt;p&gt;In this step, we’ll set some paths in your environment.&lt;/p&gt;
+
+&lt;p&gt;First, set Go’s root value, which tells Go where to look for its files.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;$ sudo nano ~/.profile&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;At the end of the file, add this line:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;export GOPATH=$HOME/work 
+
+export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;If you chose an alternate installation location for Go, add these lines instead to the same file. This example shows the commands if Go is installed in your home directory:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;export GOROOT=$HOME/go (if you keep go location other than /usr/local/go) 
+
+export GOPATH=$HOME/work 
+
+export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;With the appropriate line pasted into your profile, save and close the file. Next, refresh your profile by running:&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;$ source ~/.profile&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;step-3--testing-your-install&quot;&gt;Step 3 — Testing Your Install&lt;a href=&quot;#step-3-testing-your-install&quot;&gt;&lt;/a&gt;&lt;/h2&gt;
+
+&lt;p&gt;Now that Go is installed and the paths are set for your server, you can test to ensure that Go is working as expected.&lt;/p&gt;
+
+&lt;p&gt;Create a new directory for your Go workspace, which is where Go will build its files:&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;$ mkdir $HOME/work&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Then, create a directory hierarchy in this folder through this command in order for you to create your test file. You can replace the value user with your GitHub username if you plan to use Git to commit and store your Go code on GitHub. If you do not plan to use GitHub to store and manage your code, your folder structure could be something different, like ~/my_project.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;$ mkdir -p work/src/github.com/user/hello&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Next, you can create a simple “Hello World” Go file.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;$ nano ~/work/src/github.com/user/hello/hello.go$&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;package&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;main&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;fmt&quot;&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;func&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fmt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Printf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;hello, world&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;‌
+This program will print “hello, world” if it successfully runs, which will indicate that Go programs are compiling correctly. Save and close the file, then compile it by invoking the Go command install:&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;$ go install github.com/user/hello&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;With the file compiled, you can run it by simply executing the command:&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;$ hello&lt;/code&gt;&lt;/p&gt;
+
+</description>
+        <pubDate>Mon, 12 Aug 2019 00:00:00 +0530</pubDate>
+        <link>https://akkkshayb.github.io/bloggie/bloggie/devsecops/2019/08/12/Setup-Go-on-linux.html</link>
+        <guid isPermaLink="true">https://akkkshayb.github.io/bloggie/bloggie/devsecops/2019/08/12/Setup-Go-on-linux.html</guid>
+        
+        <category>Golang</category>
+        
+        
+        <category>Devsecops</category>
+        
+      </item>
+    
+      <item>
+        <title>Basics of Git</title>
+        <description>&lt;p&gt;&lt;img src=&quot;public/blogimgs/git.png&quot; alt=&quot;git&quot; /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;what-is-git&quot;&gt;What is GIT?&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Git is a free and open source distributed version control system designed to handle everything from small to very large projects with speed and efficiency.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;purpose-of-git&quot;&gt;Purpose of GIT&lt;/h2&gt;
+
+&lt;p&gt;Git is a software that is used for Version Control. It is free and open source.&lt;/p&gt;
+
+&lt;p&gt;Now, let’s understand what is Version Control.&lt;/p&gt;
+
+&lt;p&gt;Version Control is the management of changes to documents, computer programs, large websites and other collection of information.&lt;/p&gt;
+
+&lt;p&gt;There are two types of VCS:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Centralized Version Control System (CVCS)&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Distributed Version Control System (DVCS)
+‌&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Git is a DVCS.&lt;/p&gt;
+
+&lt;p&gt;The purpose of Git is to manage a project, or a set of files, as they change over time. Git stores this information in a data structure called a repository. Git allows a team of people to work together, all using the same files. And it helps the team cope with the confusion that tends to happen when multiple people are editing the same files.&lt;/p&gt;
+
+&lt;p&gt;‌—&lt;/p&gt;
+
+&lt;h2 id=&quot;initialize-new-git-repository&quot;&gt;Initialize new git repository&lt;/h2&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;-   Create a new directory.
+
+-   Change to directory and perform a `git init.`
+
+-   This creates a new git repository and now you are ready to perform git operations.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;‌—&lt;/p&gt;
+
+&lt;h2 id=&quot;download-git-repository&quot;&gt;Download git repository&lt;/h2&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;-   Create a working copy of a local repository using command `git clone /path/to/repository`
+
+-   When using a remote hosted server i.e, github, gitlab, bitbucket etc. you have to use `git clone username@host:/path/to/repository git clone &amp;lt;repository-address&amp;gt;`
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;so, we will see how actually git works:&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;how-git-works&quot;&gt;How Git Works&lt;/h2&gt;
+
+&lt;p&gt;😇 Git has three main states that your files can reside in: committed, modified, and staged. The Git directory is where Git stores the metadata and object database for your project. This is the most important part of Git, and it is what is copied when you clone a repository from another computer.&lt;/p&gt;
+
+&lt;p&gt;The working directory is a single checkout of one version of the project. These files are pulled out of the compressed database in the Git directory and placed on disk for you to use or modify.&lt;/p&gt;
+
+&lt;p&gt;The staging area is a simple file, generally contained in your Git directory, that stores information about what will go into your next commit. It’s sometimes referred to as the index, but it’s becoming standard to refer to it as the staging area.&lt;/p&gt;
+
+&lt;p&gt;The basic Git workflow goes something like this:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1.  You modify files in your working directory.
+
+2.  You stage the files, adding snapshots of them to your staging area.
+
+3.  You do a commit, which takes the files as they are in the staging area and stores that snapshot permanently to your Git directory.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Enter a caption for this image (optional)&lt;/p&gt;
+
+&lt;p&gt;In short, first one is your &lt;code class=&quot;highlighter-rouge&quot;&gt;Working Directory&lt;/code&gt; which holds the actual files. the second one is the &lt;code class=&quot;highlighter-rouge&quot;&gt;Index&lt;/code&gt; which acts as a staging area and finally the &lt;code class=&quot;highlighter-rouge&quot;&gt;HEAD&lt;/code&gt; which points to the last commit you’ve made.&lt;/p&gt;
+
+&lt;p&gt;‌—&lt;/p&gt;
+
+&lt;h2 id=&quot;how-yo-add--commit&quot;&gt;How yo Add &amp;amp; Commit&lt;/h2&gt;
+
+&lt;p&gt;‌&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;-   You can propose changes (add it to the **Index**) using `git add &amp;lt;filename&amp;gt; git add . git add *`
+
+-   This is the first step in the basic git workflow. To actually commit these changes use `git commit -m &quot;Commit message&quot;` Now the file is committed to the **HEAD**, but not in your remote repository yet.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;‌—&lt;/p&gt;
+
+&lt;h2 id=&quot;setting-your-username--email-address-git-repository-global&quot;&gt;Setting your Username &amp;amp; Email address git repository (Global)&lt;/h2&gt;
+
+&lt;p&gt;‌
+Set an email address in Git if not configured. You can use your organization email address or any email address.
+‌&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;-   You can check configured settings for git using `git config -l`
+
+-   Set a Git username:
+
+git config --global user.name &quot;Akshay Bharambe&quot;
+
+-   Set a Git Email address:
+
+git config --global user.email &quot;akshay.bharambe@example.com&quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;‌—&lt;/p&gt;
+
+&lt;h2 id=&quot;pushing-local-changed-to-remote-repository&quot;&gt;Pushing Local Changed to Remote Repository&lt;/h2&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;-   Your changes are now in the **HEAD** of your local working copy. To send those changes to your remote repository, execute `git push origin master` Change master to whatever branch you want to push your changes to.
+
+-   If you have not cloned an existing repository and want to connect your repository to a remote server, you need to add it with `git remote add origin &amp;lt;server repository address&amp;gt;` Now you are able to push your changes to the selected remote server.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2&gt;‌&lt;/h2&gt;
+
+&lt;h2 id=&quot;branching-model&quot;&gt;Branching Model&lt;/h2&gt;
+
+&lt;p&gt;Branches are used to develop features isolated from each other. The master branch is the “default” branch when you create a repository. Use other branches for development and merge them back to the master branch upon completion.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;-   create a new branch named &quot;develop&quot; and switch to it using `git checkout -b develop`
+
+-   switch back to master `git checkout master`
+
+-   and delete the branch again `git branch -d develop`
+
+-   a branch is not available to others unless you push the branch to your remote repository `git push origin develop`.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;update-remote-changes-to-local--merge-changes&quot;&gt;Update Remote changes to Local &amp;amp; Merge changes&lt;/h2&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;-   To update your local repository to the newest commit, execute `git pull git pull origin develop` in your working directory to fetch and merge remote changes.
+
+-   To merge another branch into your active branch (e.g. master), check out to base branch and then use `*master &amp;gt; git merge develop` This Merges changes from develop branch to master branch
+
+-   In both cases git tries to auto-merge changes. Unfortunately, this is not always possible and results in conflicts. You are responsible to merge those conflicts manually by editing the files shown by git. After changing, you need to mark them as merged with `git add &amp;lt;filename&amp;gt;` before merging changes, you can also preview them by using `git diff &amp;lt;source_branch&amp;gt; &amp;lt;target_branch&amp;gt;`
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;‌—&lt;/p&gt;
+
+&lt;h2 id=&quot;git-logs&quot;&gt;Git Logs&lt;/h2&gt;
+&lt;p&gt;‌
+	-   you can check repository history logs using. &lt;code class=&quot;highlighter-rouge&quot;&gt;git log&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;-   You can check logs for certain author. `git log --author=akshay`
+
+-   To see a very compressed log where each commit is one line: `git log --pretty=oneline`
+
+-   See only which files have changed: `git log --name-status`
+
+-   These are just a few of the possible parameters you can use. For more, see`git log --help`
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;‌—&lt;/p&gt;
+
+&lt;h2 id=&quot;revert-changes&quot;&gt;Revert Changes&lt;/h2&gt;
+
+&lt;p&gt;‌&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;-   In case you did something wrong, you can revert local changes using the command `git checkout -- &amp;lt;filename&amp;gt;` this replaces the changes in your working tree with the last content in HEAD. Changes already added to the index, as well as new files, will be kept.
+
+-   If you instead want to drop all your local changes and commits, fetch the latest history from the server and point your local master branch at it like this `git fetch origin`  `git reset --hard origin/master`
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;hr /&gt;
+&lt;p&gt;‌&lt;/p&gt;
+
+&lt;h2 id=&quot;tagging&quot;&gt;Tagging&lt;/h2&gt;
+
+&lt;p&gt;‌&lt;/p&gt;
+
+&lt;p&gt;it’s recommended to create tags for software releases. You can create a new tag named 0.0.1 by executing &lt;code class=&quot;highlighter-rouge&quot;&gt;git tag 0.0.1 a1k7s3h9a4y&lt;/code&gt; the &lt;code class=&quot;highlighter-rouge&quot;&gt;a1k7s3h9a4y&lt;/code&gt; stands for the first 10 characters of the commit id you want to reference with your tag. You can get the commit id by looking at the..&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;That’s it! Enjoy Gitting!&lt;/p&gt;
+</description>
+        <pubDate>Mon, 12 Aug 2019 00:00:00 +0530</pubDate>
+        <link>https://akkkshayb.github.io/bloggie/bloggie/devsecops/2019/08/12/Basics-of-Git.html</link>
+        <guid isPermaLink="true">https://akkkshayb.github.io/bloggie/bloggie/devsecops/2019/08/12/Basics-of-Git.html</guid>
+        
+        <category>GIT</category>
+        
+        
+        <category>Devsecops</category>
+        
+      </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,60 @@
+{
+    "code" : 0 ,
+    "data" : [
+     
+    {
+        "title" : "Basics of Kubernetes - 2019-08-20",
+        "url" : "/bloggie/devsecops/2019/08/20/Basics-Kubernetes.html"
+    }
+    
+    ,
+    
+    
+    {
+        "title" : "Basics of Docker and Docker-compose - 2019-08-20",
+        "url" : "/bloggie/devsecops/2019/08/20/Basics-Docker-and-Docker-compose.html"
+    }
+    
+    ,
+    
+    
+    {
+        "title" : "Setup K8s with Minikube - 2019-08-19",
+        "url" : "/bloggie/devsecops/2019/08/19/Setup-K8s-with-minikube.html"
+    }
+    
+    ,
+    
+    
+    {
+        "title" : "Setup & Install Docker and Docker-compose - 2019-08-19",
+        "url" : "/bloggie/devsecops/2019/08/19/Setup-Docker-and-Docker-compose.html"
+    }
+    
+    ,
+    
+    
+    {
+        "title" : "Overview of DevOps - 2019-08-19",
+        "url" : "/bloggie/devsecops/2019/08/19/Overview-of-devops.html"
+    }
+    
+    ,
+    
+    
+    {
+        "title" : "Setup Golang Environment - 2019-08-12",
+        "url" : "/bloggie/devsecops/2019/08/12/Setup-Go-on-linux.html"
+    }
+    
+    ,
+    
+    
+    {
+        "title" : "Basics of Git - 2019-08-12",
+        "url" : "/bloggie/devsecops/2019/08/12/Basics-of-Git.html"
+    }
+    
+    
+    ]
+}

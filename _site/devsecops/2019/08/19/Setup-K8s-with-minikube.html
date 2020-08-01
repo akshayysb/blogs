@@ -1,0 +1,124 @@
+<!DOCTYPE html> <html lang="en"> <head> <meta charset="utf-8"> <meta http-equiv="X-UA-Compatible" content="IE=edge"> <meta name="viewport" content="width=device-width, initial-scale=1 maximum-scale=1; minimum-scale=1; user-scalable=no;"> <meta content="Quick installation of K8s with minikube" name="description"> <meta name="keywords" content="gh-pages,website,blog,easy"> <meta name="author" content="Akshayb"> <meta name="baseurl" content="/bloggie"> <title> Akshay Bharambe|Setup K8s with Minikube </title> <!-- favicon --> <link rel="shortcut icon" href="/bloggie/static/assets/img/favicon.png"> <!-- Main CSS --> <link href="/bloggie/static/assets/app-20180125.min.css" rel="stylesheet"> <link href="/bloggie/static/css/custom.css" rel="stylesheet"> <!-- Main Scripts --> <script src="/bloggie/static/assets/app-20180125.min.js"></script> <script src="/bloggie/static/assets/blog-20180125.min.js"></script> <!-- Google AdSense --> <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script> <script> (adsbygoogle = window.adsbygoogle || []).push({ google_ad_client: "ca-pub-6196184668650108", enable_page_level_ads: true }); </script> </head> <body id="page-top" class="landing-page"> <div class="search-tool" style="position: fixed; top: 0px ; bottom: 0px; left: 0px; right: 0px; opacity: 0.95; background-color: #111111; z-index: 9999; display: none;"> <input type="text" class="form-control search-content" id="search-content" style="position: fixed; top: 60px" placeholder="Search Blog"> <div style="position: fixed; top: 16px; right: 16px; z-index: 9999;"> <img src="/bloggie/static/assets/img/search/cb-close.png" id="close-btn"/> </div> </div> <div style="position: fixed; right: 16px; bottom: 20px; z-index: 9999;"> <img src="/bloggie/static/assets/img/search/cb-search.png" id="search-btn" title="Double click Ctrl"/> </div> <div class="navbar-wrapper"> <nav class="navbar navbar-default navbar-fixed-top" role="navigation"> <div class="container"> <div class="navbar-header page-scroll"> <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button> <a class="navbar-brand" href="/bloggie/">Akshay Bharambe</a> </div> <div id="navbar" class="navbar-collapse collapse"> <ul class="nav navbar-nav navbar-right"> <li><a class="page-scroll" href="/bloggieblog/"></a></li> <li> <a class="page-scroll" href="/bloggie/blog/">Blogs</a></li> <li> <a class="page-scroll" href="/bloggie/devsecops/">DevSecOps</a></li> <li> <a class="page-scroll" href="/bloggie/iot/">Iot-IIot</a></li> <li> <a class="page-scroll" href="/bloggie/programming/">Programming</a></li> <li> <a class="page-scroll" href="/bloggie/others/">Others</a></li> </ul> </div> </div> </nav> </div> <div id="inSlider" class="carousel carousel-fade" data-ride="carousel"> <ol class="carousel-indicators"> <li data-target="#inSlider" data-slide-to="0" class="active"></li> <li data-target="#inSlider" data-slide-to="1"></li> </ol> <div class="carousel-inner" role="listbox"> <div class="item active"> <div class="container"> <div class="carousel-caption"> </div> <div class="carousel-image wow zoomIn"> <!-- <img src="static/img/landing/laptop.png" alt="laptop"/> --> </div> </div> <!-- Set background for slide in css --> <div class="header-back" style="background-image: url(/bloggie/static/assets/img/landing/hello.jpg);" title="first banner image"> </div> </div> <div class="item"> <div class="container"> <div class="carousel-caption"> </div> <div class="carousel-image wow zoomIn"> <!-- <img src="static/img/landing/laptop.png" alt="laptop"/> --> </div> </div> <!-- Set background for slide in css --> <div class="header-back" style="background-image: url(/bloggie/static/assets/img/landing/building.jpg);" title="second banner image"></div> </div> </div> <a class="left carousel-control" href="#inSlider" role="button" data-slide="prev"> <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> <span class="sr-only">Previous</span> </a> <a class="right carousel-control" href="#inSlider" role="button" data-slide="next"> <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> <span class="sr-only">Next</span> </a> </div> <div class="wrapper wrapper-content animated fadeInRight article"> <div class="row"> <div class="col-lg-10 col-lg-offset-1"> <div class="ibox"> <div class="ibox-content"> <div class="pull-right"> <a class="btn btn-white btn-xs" href="/bloggie/devsecops">Devsecops</a> </div> <div class="text-center article-title"> <span class="text-muted"><i class="fa fa-clock-o"></i> 19 Aug 2019</span> <h1> Setup K8s with Minikube </h1> </div> <h1 id="kubernetes-with-minikube">Kubernetes with Minikube</h1> <p><img src="public/blogimgs/minikube-architecture.png" alt="K8s-with-minikube" /></p> <hr /> <h2 id="how-to-install-kubernetes-with-minikube-on-ubuntu-1804-lts">How to Install Kubernetes with Minikube on Ubuntu 18.04 LTS</h2> <blockquote> <p>Minikube is a free and open source tool that enables you to set up single node Kubernetes cluster inside your Linux system. Minikube can be installed on Linux, MacOS and Windows Operating system. Minikube also supports various Kubernetes features such as NodePorts, DNS, Container Network Interface, Ingress, ConfigMaps, Secrets and much more.</p> </blockquote> <p>In this tutorial, we will learn how to install a Kubernetes single-node Cluster Minikube on Ubuntu 18.04 LTS.</p> <p><strong>Requirements</strong></p> <ul> <li>A Fresh Ubuntu 18.04 desktop installed on your system.</li> <li>A root password is set up on your system.</li> </ul> <p><strong>Getting Started</strong> First, you will need to update your system with the latest version. You can do this by running the following command:</p> <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>apt-get update -y
+apt-get upgrade -y
+</code></pre></div></div> <p>Once the system is updated, restart your system to apply all the changes.</p> <p>Next, install some required packages with the following command:</p> <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>apt-get install curl wget apt-transport-https -y --- ## Install VirtualBox Hypervisor Minikube supports both KVM and VirtualBox hypervisor. So, you will need to install VirtualBox or KVM to your system.
+</code></pre></div></div> <p>You can install Virtualbox with the following command:</p> <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>apt-get install virtualbox virtualbox-ext-pack
+</code></pre></div></div> <h2 id="once-the-installation-has-been-completed-you-can-proceed-to-the-next-step">Once the installation has been completed, you can proceed to the next step.</h2> <h2 id="install-minikube">Install Minikube</h2> <p>First, you will need to download the latest version of Minikube to your system. You can download it from their official websites with the following command:</p> <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>wget https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+</code></pre></div></div> <p>Once the download is completed, copy the downloaded file under /usr/local/bin with the following command:</p> <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cp minikube-linux-amd64 /usr/local/bin/minikube
+</code></pre></div></div> <p>Next, give execution permission to the minikube with the following command:</p> <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>chmod 755 /usr/local/bin/minikube
+</code></pre></div></div> <p>Next, check the version of Minikube with the following command:</p> <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>minikube version
+</code></pre></div></div> <p>You should see the following output:</p> <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>minikube version: v0.34.1 --- ### Install Kubectl
+</code></pre></div></div> <p>Kubectl is a tool to deploy and manage applications on Kubernetes. By default, Kubectl is not available in the Ubuntu 18.04 default repository. So, you will need to add Kubernetes repository to your system.</p> <p>First, download and add the GPG key with the following command:</p> <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
+</code></pre></div></div> <p>Next, add Kubernetes apt repository with the following command:</p> <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>echo "deb http://apt.kubernetes.io/ kubernetes-xenial main" | tee /etc/apt/sources.list.d/kubernetes.list
+</code></pre></div></div> <p>Next, update the repository and install Kubectl with the following command:</p> <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>apt-get update -y
+apt-get install kubectl -y
+</code></pre></div></div> <p>Once the Kubectl has been installed, you can check the version using the following command:</p> <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl version -o json
+</code></pre></div></div> <p>You should see the following output:</p> <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{
+  "clientVersion": {
+    "major": "1",
+    "minor": "13",
+    "gitVersion": "v1.13.4",
+    "gitCommit": "c27b913fddd1a6c480c229191a087698aa92f0b1",
+    "gitTreeState": "clean",
+    "buildDate": "2019-02-28T13:37:52Z",
+    "goVersion": "go1.11.5",
+    "compiler": "gc",
+    "platform": "linux/amd64"
+  }
+} --- ## Start Minikube
+</code></pre></div></div> <p>All the required packages are installed. You can now start Minikube with the following command:</p> <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>minikube start
+</code></pre></div></div> <p>This will download the Virtualbox image and configure Kubernetes cluster as shown below:</p> <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>o   minikube v0.34.1 on linux (amd64)
+&gt;   Creating virtualbox VM (CPUs=2, Memory=2048MB, Disk=20000MB) ...
+@   Downloading Minikube ISO ...
+ 184.30 MB / 184.30 MB [============================================] 100.00% 0s
+-   "minikube" IP address is 192.168.99.100
+-   Configuring Docker as the container runtime ...
+-   Preparing Kubernetes environment ...
+@   Downloading kubeadm v1.13.3
+@   Downloading kubelet v1.13.3
+​
+-   Pulling images required by Kubernetes v1.13.3 ...
+-   Launching Kubernetes v1.13.3 using kubeadm ... 
+-   Configuring cluster permissions ...
+-   Verifying component health .....
++   kubectl is now configured to use "minikube"
+=   Done! Thank you for using minikube!
+</code></pre></div></div> <p>You can now check the cluster status with the following command:</p> <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl cluster-info
+</code></pre></div></div> <p>You should see the following output:</p> <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Kubernetes master is running at https://192.168.99.100:8443
+KubeDNS is running at https://192.168.99.100:8443/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
+​
+</code></pre></div></div> <p>To further debug and diagnose cluster problems, use ‘kubectl cluster-info dump’. You can also check the Kubectl default configuration with the following command:</p> <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl config view
+</code></pre></div></div> <p>You should see the following output:</p> <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>apiVersion: v1
+clusters:
+- cluster:
+    certificate-authority: /root/.minikube/ca.crt
+    server: https://192.168.99.100:8443
+  name: minikube
+contexts:
+- context:
+    cluster: minikube
+    user: minikube
+  name: minikube
+current-context: minikube
+kind: Config
+preferences: {}
+users:
+- name: minikube
+  user:
+    client-certificate: /root/.minikube/client.crt
+    client-key: /root/.minikube/client.key
+</code></pre></div></div> <p>To check the running nodes, run the following command:</p> <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl get nodes
+</code></pre></div></div> <p>Output:</p> <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>NAME       STATUS   ROLES    AGE     VERSION
+minikube   Ready    master   2m45s   v1.13.3
+</code></pre></div></div> <p>You can also access the Minikube Virtualbox with the following command:</p> <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>minikube ssh
+</code></pre></div></div> <p>Yo should see the following output:</p> <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>                         _             _            
+            _         _ ( )           ( )           
+  ___ ___  (_)  ___  (_)| |/')  _   _ | |_      __  
+/' _ ` _ `\| |/' _ `\| || , &lt;  ( ) ( )| '_`\  /'__`\
+| ( ) ( ) || || ( ) || || |\`\ | (_) || |_) )(  ___/
+(_) (_) (_)(_)(_) (_)(_)(_) (_)`\___/'(_,__/'`\____)
+​
+</code></pre></div></div> <p>Now, exit from the Virtualbox shell:</p> <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ exit
+</code></pre></div></div> <p>You can also stop and delete kubernetes cluster anytime with the following command:</p> <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>minikube stop
+minikube delete
+</code></pre></div></div> <p>You can check the status of Minikube with the following command:</p> <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>minikube status
+</code></pre></div></div> <p>You should see the following output:</p> <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>host: Running
+kubelet: Running
+apiserver: Running
+kubectl: Correctly Configured: pointing to minikube-vm at 192.168.99.100 --- ### Access Kubernetes Dashboard By default, Kubernetes comes with web dashboard that can be used to manage your cluster.
+</code></pre></div></div> <p>You can list all the minikube addons with the following command:</p> <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>minikube addons list You should see the following output:
+
+- addon-manager: enabled
+- dashboard: disabled
+- default-storageclass: enabled
+- efk: disabled
+- freshpod: disabled
+- gvisor: disabled
+- heapster: disabled
+- ingress: disabled
+- logviewer: disabled
+- metrics-server: disabled
+- nvidia-driver-installer: disabled
+- nvidia-gpu-device-plugin: disabled
+- registry: disabled
+- registry-creds: disabled
+- storage-provisioner: enabled
+- storage-provisioner-gluster: disabled
+</code></pre></div></div> <p>Next, list all the container image running in the cluster with the following command:</p> <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl get pods --all-namespaces
+</code></pre></div></div> <p>You should see the following output:</p> <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>NAMESPACE     NAME                                   READY   STATUS    RESTARTS   AGE
+kube-system   coredns-86c58d9df4-76dkf               1/1     Running   0          4m30s
+kube-system   coredns-86c58d9df4-wdtwb               1/1     Running   0          4m29s
+kube-system   etcd-minikube                          1/1     Running   0          8m17s
+kube-system   kube-addon-manager-minikube            1/1     Running   0          8m6s
+kube-system   kube-apiserver-minikube                1/1     Running   1          8m13s
+kube-system   kube-controller-manager-minikube       1/1     Running   1          8m13s
+kube-system   kube-proxy-5k8qf                       1/1     Running   0          4m33s
+kube-system   kube-scheduler-minikube                1/1     Running   0          8m2s
+kube-system   kubernetes-dashboard-ccc79bfc9-z827s   1/1     Running   0          4m17s
+kube-system   storage-provisioner                    1/1     Running   0          4m13s
+</code></pre></div></div> <p>Now, run the following command to get the URL of the kubernate dashboard:</p> <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>minikube dashboard --url
+</code></pre></div></div> <p>You should see the following output:</p> <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-   Enabling dashboard ...
+-   Verifying dashboard health ...
+-   Launching proxy ...
+-   Verifying proxy health ...
+http://127.0.0.1:56508/api/v1/namespaces/kube-system/services/http:kubernetes-dashboard:/proxy/
+</code></pre></div></div> <p>Your Minikube web url is now generated. Next, open your web browser and type the URL:</p> <p><code class="highlighter-rouge">http://127.0.0.1:56508/api/v1/namespaces/kube-system/services/http:kubernetes-dashboard:/proxy/</code></p> <p>You will be redirected to the Kubernate dashboad.</p> <h2 id="congratulations-you-have-successfully-installed-minikube-you-can-now-easily-manage-your-kubernetes-cluster-through-your-web-browser">Congratulations! you have successfully installed Minikube. You can now easily manage your Kubernetes cluster through your web browser.</h2> <hr> <div class="row"> <div class="col-md-6"> <h5 style="display: inline;">Tags:</h5> <button class="btn btn-white btn-xs" type="button">Kubernetes</button> </div> <div class="col-md-6"> <div class="small text-right"> <div> </div> </div> </div> </div> <br> <div class="row"> <div class="col-lg-12"> <!-- donate --> <br> <!-- share --> <div class="a2a_kit a2a_kit_size_32 a2a_default_style"> <a class="a2a_dd" href="https://www.addtoany.com/share"></a> <a class="a2a_button_facebook"></a> <a class="a2a_button_twitter"></a> <a class="a2a_button_google_plus"></a> <a class="a2a_button_linkedin"></a> <a class="a2a_button_email"></a> <a class="a2a_button_wechat"></a> <a class="a2a_button_sina_weibo"></a> <a class="a2a_button_pocket"></a> </div> <script> var a2a_config = a2a_config || {}; a2a_config.color_main = "D7E5ED"; a2a_config.color_border = "AECADB"; a2a_config.color_link_text = "333333"; a2a_config.color_link_text_hover = "333333"; </script> <script async src="https://static.addtoany.com/menu/page.js"></script> <br> <!-- comment --> </div> </div> </div> </div> </div> </div> </div> <!-- Google analytics --> <!-- GrowingIO --> </body> </html>

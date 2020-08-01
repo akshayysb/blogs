@@ -1,0 +1,6 @@
+# skills section data
+
+label: Ability
+id : cs
+aspects: Git, AWS, Docker, Jenkins, Python, Ansible, Kubernetes, Self-Motivation, Teamwork
+percentage: 80, 55, 75, 65, 60, 75, 30, 90, 70

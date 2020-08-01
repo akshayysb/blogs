@@ -1,0 +1,15 @@
+# projects section data
+# If you don't have language feature(language.yml is empty), ignore "i18n" items
+# Suggest projects' img be located at '/static/assets/img/landing', and edit following img items.
+- name: Blog Website 
+  gh_user: akkkshayb
+  repo: bloggie
+  img: /static/assets/img/landing/jekyll.png
+  desc: This static personal blog website is developed using jekyll and github pages. You can read blogs posted related to technical as well as non-technical things. I have used jekyll theme developed by Jarekk.
+
+- name: Personal Portflio Website
+  gh_user: akkkshayb
+  repo: akkkshayb.github.io
+  img: /static/assets/img/landing/Octocat.png
+  desc: This is my personal portfolio/curriculum vitae of my work. This project is developed in html/css/js using github pages i.e, theme called Kards.
+

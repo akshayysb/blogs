@@ -1,0 +1,16 @@
+# links section data
+- last_name: Jekyll
+  first_name:
+  desc: Transform your plain text into static websites and blogs.
+  website: https://jekyllrb.com/
+
+- last_name: Donate
+  first_name: Akshayb
+  desc: If you have found my blogs to be of any use to you, do consider helping me pay my internet bills. This would encourage me to write helpful blogs :)
+  website: https://www.paypal.me/akshaysb17
+  email: akkyadwork@gmail.co
+
+- last_name: Github
+  first_name: 
+  desc: We want to express our gratitude for all you've done and do for Open Source.
+  website: https://github.com
