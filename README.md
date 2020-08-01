@@ -1,1 +1,1 @@
-# bloggie
+# blogs

@@ -3,8 +3,8 @@
   <channel>
     <title>Akshay Bharambe</title>
     <description>Akshaysb&#39;s blog,use Jekyll and github pages.</description>
-    <link>https://akkkshayb.github.io/bloggie/bloggie/</link>
-    <atom:link href="https://akkkshayb.github.io/bloggie/bloggie/feed.xml" rel="self" type="application/rss+xml"/>
+    <link>https://akkkshayb.github.io/blogs/blogs/</link>
+    <atom:link href="https://akkkshayb.github.io/blogs/blogs/feed.xml" rel="self" type="application/rss+xml"/>
     <pubDate>Fri, 31 Jul 2020 20:03:05 +0530</pubDate>
     <lastBuildDate>Fri, 31 Jul 2020 20:03:05 +0530</lastBuildDate>
     <generator>Jekyll v3.1.6</generator>
@@ -84,8 +84,8 @@
 &lt;p&gt;That’s all about Kubernetes’ basic concepts in simple words!&lt;/p&gt;
 </description>
         <pubDate>Tue, 20 Aug 2019 00:00:00 +0530</pubDate>
-        <link>https://akkkshayb.github.io/bloggie/bloggie/devsecops/2019/08/20/Basics-Kubernetes.html</link>
-        <guid isPermaLink="true">https://akkkshayb.github.io/bloggie/bloggie/devsecops/2019/08/20/Basics-Kubernetes.html</guid>
+        <link>https://akkkshayb.github.io/blogs/blogs/devsecops/2019/08/20/Basics-Kubernetes.html</link>
+        <guid isPermaLink="true">https://akkkshayb.github.io/blogs/blogs/devsecops/2019/08/20/Basics-Kubernetes.html</guid>
         
         <category>Kubernetes</category>
         
@@ -255,8 +255,8 @@ services:
 &lt;p&gt;That’s it. Enjoy Dockering!&lt;/p&gt;
 </description>
         <pubDate>Tue, 20 Aug 2019 00:00:00 +0530</pubDate>
-        <link>https://akkkshayb.github.io/bloggie/bloggie/devsecops/2019/08/20/Basics-Docker-and-Docker-compose.html</link>
-        <guid isPermaLink="true">https://akkkshayb.github.io/bloggie/bloggie/devsecops/2019/08/20/Basics-Docker-and-Docker-compose.html</guid>
+        <link>https://akkkshayb.github.io/blogs/blogs/devsecops/2019/08/20/Basics-Docker-and-Docker-compose.html</link>
+        <guid isPermaLink="true">https://akkkshayb.github.io/blogs/blogs/devsecops/2019/08/20/Basics-Docker-and-Docker-compose.html</guid>
         
         <category>Docker</category>
         
@@ -555,8 +555,8 @@ http://127.0.0.1:56508/api/v1/namespaces/kube-system/services/http:kubernetes-da
 &lt;h2 id=&quot;congratulations-you-have-successfully-installed-minikube-you-can-now-easily-manage-your-kubernetes-cluster-through-your-web-browser&quot;&gt;Congratulations! you have successfully installed Minikube. You can now easily manage your Kubernetes cluster through your web browser.&lt;/h2&gt;
 </description>
         <pubDate>Mon, 19 Aug 2019 00:00:00 +0530</pubDate>
-        <link>https://akkkshayb.github.io/bloggie/bloggie/devsecops/2019/08/19/Setup-K8s-with-minikube.html</link>
-        <guid isPermaLink="true">https://akkkshayb.github.io/bloggie/bloggie/devsecops/2019/08/19/Setup-K8s-with-minikube.html</guid>
+        <link>https://akkkshayb.github.io/blogs/blogs/devsecops/2019/08/19/Setup-K8s-with-minikube.html</link>
+        <guid isPermaLink="true">https://akkkshayb.github.io/blogs/blogs/devsecops/2019/08/19/Setup-K8s-with-minikube.html</guid>
         
         <category>Kubernetes</category>
         
@@ -760,8 +760,8 @@ sudo systemctl enable docker
 &lt;h2 id=&quot;now-that-we-have-docker-compose-installed-were-ready-to-run-a-hello-world-example&quot;&gt;Now that we have Docker Compose installed, we’re ready to run a “Hello World” example.&lt;/h2&gt;
 </description>
         <pubDate>Mon, 19 Aug 2019 00:00:00 +0530</pubDate>
-        <link>https://akkkshayb.github.io/bloggie/bloggie/devsecops/2019/08/19/Setup-Docker-and-Docker-compose.html</link>
-        <guid isPermaLink="true">https://akkkshayb.github.io/bloggie/bloggie/devsecops/2019/08/19/Setup-Docker-and-Docker-compose.html</guid>
+        <link>https://akkkshayb.github.io/blogs/blogs/devsecops/2019/08/19/Setup-Docker-and-Docker-compose.html</link>
+        <guid isPermaLink="true">https://akkkshayb.github.io/blogs/blogs/devsecops/2019/08/19/Setup-Docker-and-Docker-compose.html</guid>
         
         <category>Docker</category>
         
@@ -936,8 +936,8 @@ lifecycle has its own process and deliverables that feed into the next phase.&lt
 &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Sprint&lt;/code&gt; : Sprint is one timeboxed iteration of a continuous development cycle. Within a Sprint, planned amount of work has to be completed by the team and made ready for review. The term is mainly used in Scrum Agile methodology.&lt;/p&gt;
 </description>
         <pubDate>Mon, 19 Aug 2019 00:00:00 +0530</pubDate>
-        <link>https://akkkshayb.github.io/bloggie/bloggie/devsecops/2019/08/19/Overview-of-devops.html</link>
-        <guid isPermaLink="true">https://akkkshayb.github.io/bloggie/bloggie/devsecops/2019/08/19/Overview-of-devops.html</guid>
+        <link>https://akkkshayb.github.io/blogs/blogs/devsecops/2019/08/19/Overview-of-devops.html</link>
+        <guid isPermaLink="true">https://akkkshayb.github.io/blogs/blogs/devsecops/2019/08/19/Overview-of-devops.html</guid>
         
         <category>DevOps</category>
         
@@ -1034,8 +1034,8 @@ This program will print “hello, world” if it successfully runs, which will i
 
 </description>
         <pubDate>Mon, 12 Aug 2019 00:00:00 +0530</pubDate>
-        <link>https://akkkshayb.github.io/bloggie/bloggie/devsecops/2019/08/12/Setup-Go-on-linux.html</link>
-        <guid isPermaLink="true">https://akkkshayb.github.io/bloggie/bloggie/devsecops/2019/08/12/Setup-Go-on-linux.html</guid>
+        <link>https://akkkshayb.github.io/blogs/blogs/devsecops/2019/08/12/Setup-Go-on-linux.html</link>
+        <guid isPermaLink="true">https://akkkshayb.github.io/blogs/blogs/devsecops/2019/08/12/Setup-Go-on-linux.html</guid>
         
         <category>Golang</category>
         
@@ -1232,8 +1232,8 @@ git config --global user.email &quot;akshay.bharambe@example.com&quot;
 &lt;p&gt;That’s it! Enjoy Gitting!&lt;/p&gt;
 </description>
         <pubDate>Mon, 12 Aug 2019 00:00:00 +0530</pubDate>
-        <link>https://akkkshayb.github.io/bloggie/bloggie/devsecops/2019/08/12/Basics-of-Git.html</link>
-        <guid isPermaLink="true">https://akkkshayb.github.io/bloggie/bloggie/devsecops/2019/08/12/Basics-of-Git.html</guid>
+        <link>https://akkkshayb.github.io/blogs/blogs/devsecops/2019/08/12/Basics-of-Git.html</link>
+        <guid isPermaLink="true">https://akkkshayb.github.io/blogs/blogs/devsecops/2019/08/12/Basics-of-Git.html</guid>
         
         <category>GIT</category>
         

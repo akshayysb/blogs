@@ -3,7 +3,7 @@
 # Suggest projects' img be located at '/static/assets/img/landing', and edit following img items.
 - name: Blog Website 
   gh_user: akkkshayb
-  repo: bloggie
+  repo: blogs
   img: /static/assets/img/landing/jekyll.png
   desc: This static personal blog website is developed using jekyll and github pages. You can read blogs posted related to technical as well as non-technical things. I have used jekyll theme developed by Jarekk.
 
