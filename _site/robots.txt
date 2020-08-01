@@ -1,2 +1,2 @@
 User-agent: *
-Sitemap: <https://akkkshayb.github.io/blogs/sitemap.xml>
+Sitemap: <https://akshayysb.github.io/blogs/sitemap.xml>

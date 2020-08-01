@@ -3,9 +3,9 @@
 # Website settings
 title: Akshay Bharambe
 description: Akshaysb's blog,use Jekyll and github pages.
-keywords: Akshaysb, akkkshayb,blog,Jekyll,github,gh-pages
+keywords: Akshaysb, akshayysb,blog,Jekyll,github,gh-pages
 baseurl:  /blogs # if you have suburl as homepage like '/homepage', please change it to '/homepage' and your repo's name should be 'homepage'
-url: https://akkkshayb.github.io/blogs  # url should be 'http://<github_username>.github.io/homepage' as before
+url: https://akshayysb.github.io/blogs  # url should be 'http://<github_username>.github.io/homepage' as before
 # url: http://127.0.0.1:4000
 img_path: /Jalpc/static/assets/img/blog  # url should be '/homepage/static/assets/img/blog' as before
 
@@ -15,12 +15,12 @@ author:  # change following line to your infomation.
   first_name: Akshay   # Be used at index page about me section.
   last_name: Bharambe  # Be used at index page about me section.
   avatar: /static/assets/img/landing/avatar.jpg  # upload your avatar at directory and edit it.
-  github_username: akkkshayb  # Leave blank if you don't have now
+  github_username: akshayysb  # Leave blank if you don't have now
   linkedin_id: akshay-bharambe # Leave blank if you don't have now
   facebook_username:   # Leave blank if you don't have now
   twitter_username:  # Leave blank if you don't have now
   email: akkyadwork@gmail.com  # Leave blank if you don't have now
-  cv: https://akkkshayb.github.io  # An online CV can be printed as PDF, leave blank if you don't have now
+  cv: https://akshayysb.github.io  # An online CV can be printed as PDF, leave blank if you don't have now
   # skill icons are on avatar's left and right side. Reference urls are http://fontawesome.io/ and http://fizzed.com/oss/font-mfizz
   skill_icon1:
     - name: icon-aws
